@@ -1,8 +1,9 @@
-import React from "react";
-import Router from "next/router";
-import ReactMarkdown from "react-markdown";
+/* eslint-disable react/no-children-prop */
+import React from 'react';
+import Router from 'next/router';
+import ReactMarkdown from 'react-markdown';
 
-export type PostProps = {
+export interface PostProps {
   id: string;
   title: string;
   author: {
@@ -11,12 +12,12 @@ export type PostProps = {
   } | null;
   content: string;
   published: boolean;
-};
+}
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
-  const authorName = post.author ? post.author.name : "Unknown author";
+  const authorName = post.author ? post.author.name : 'Unknown author';
   return (
-    <div onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}>
+    <div onClick={async () => await Router.push('/p/[id]', `/p/${post.id}`)}>
       <h2>{post.title}</h2>
       <small>By {authorName}</small>
       <ReactMarkdown children={post.content} />
